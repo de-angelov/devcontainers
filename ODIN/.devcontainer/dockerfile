@@ -1,0 +1,13 @@
+FROM alpine:latest 
+
+# install needed packages and clone repo 
+RUN apk --no-cache add linux-headers git go-task llvm14-dev  clang  --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community/
+RUN git clone https://github.com/odin-lang/Odin
+
+# build odin - llvm needs to be <= 14 
+RUN cd /Odin/ && LLVM_CONFIG="/usr/bin/llvm14-config" ./build_odin.sh release
+ENV PATH="/Odin/:${PATH}"
+
+# set the aliases and load them on init
+RUN echo 'alias tsk="go-task"' >> ~/.ashrc
+ENV ENV=/root/.ashrc
