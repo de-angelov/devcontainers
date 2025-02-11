@@ -1,0 +1,6 @@
+{
+    "name": "Odin Nix 2",
+    "build": {
+        "dockerfile": "Dockerfile", // Fixed path to the Dockerfile
+    }
+}

@@ -1,0 +1,24 @@
+FROM ubuntu:22.04
+
+# Install dependencies
+RUN apt update && apt install -y curl xz-utils sudo
+
+# Set the working directory
+WORKDIR /app
+
+# Copy default.nix for the Nix environment setup
+COPY default.nix /app/
+
+# Set Nix environment variables
+ENV NIX_PATH=nixpkgs=https://github.com/NixOS/nixpkgs/archive/master.tar.gz
+ENV PATH="/root/.nix-profile/bin:/nix/var/nix/profiles/default/bin:${PATH}"
+
+# Install Nix as root (with daemon flag)
+RUN curl -L https://nixos.org/nix/install | bash -s -- --daemon
+
+
+# Install packages defined in default.nix
+RUN bash -l -c "nix-env -f /app/default.nix  -i"
+
+
+CMD ["bash"]

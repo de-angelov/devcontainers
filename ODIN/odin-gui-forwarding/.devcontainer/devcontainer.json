@@ -1,0 +1,26 @@
+{
+	"name": "nixOS",
+	"containerEnv": {
+		"DISPLAY": "${localEnv:DISPLAY}"
+	},
+	"build": {
+		"dockerfile": "dockerfile",
+	},
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"streetsidesoftware.code-spell-checker",
+				"eamodio.gitlens",
+				"editorconfig.editorconfig",
+				"oderwat.indent-rainbow",
+				"DanielGavin.ols",
+				"aesl.odin",
+				"paulvarache.vscode-taskfile",
+				"usernamehw.errorlens"
+			],
+			"settings": {}
+		}
+	}
+}
